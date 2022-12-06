@@ -1,0 +1,68 @@
+*{
+    color:azure;
+}
+.accordion-button:focus{
+    box-shadow: none !important;
+}
+.show-img{
+    max-height: 350px;
+}
+.bg-darker{
+    background-color: #1d2024;
+}
+.index-img-bio{
+    max-height: 350px;
+}
+.min-vh-85{
+    min-height: 75vh;
+}
+.modal{
+    margin-top: 15vh;
+}
+a{
+    text-decoration:none !important;
+}
+
+.card{
+    background-color: #0000001c !important;
+    transition: all 1s ease !important;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+      opacity:0%;
+    }
+    60%{
+        opacity:0%
+    }
+    100% {
+      opacity: 100%;
+    }
+  }
+.transition-div{
+    animation: 1s ease 0s slideInFromLeft;
+}
+.cart-zoom{
+    transition: 1s ease-out;
+}
+.cart-zoom:hover{
+    transform: scale(10); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+.form-check-input
+{
+    color: rgb(194, 0, 0) !important;
+    border-color: rgb(27, 27, 27) !important;
+    background-color:#10a6c4d7  !important;
+}
+
