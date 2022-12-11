@@ -19,8 +19,8 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->firstNameFemale(),
             'price' => fake()->randomNumber(2),
-            'photo_sq' => 'storage/images/sq_1669297332swieczka (10).jpg',
-            'photo' => 'storage/images/1669297332swieczka (10).jpg',
+            'photo_sq' => fake()->randomElement(array('storage/images/sq_1669297332swieczka (10).jpg','storage/images/sq_1669216811swieczka (6).jpg')),
+            'photo' => fake()->randomElement(array('storage/images/sq_1669297332swieczka (10).jpg','storage/images/sq_669216811swieczka (6).jpg')),
             'description' => 'Desc',
             'color' => fake()->randomElement(array('Black','White','Blue','Yellow','Transparent')),
             'discount' => fake()->randomElement(array(1,null)),
