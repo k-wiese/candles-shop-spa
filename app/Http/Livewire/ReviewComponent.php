@@ -15,17 +15,13 @@ class ReviewComponent extends Component
     public function render()
     {
         $reviews = Review::query()
-                            ->orderBy('created_at', 'desc')
-                            ->where('product_id','=',$this->product->id)
-                            ->paginate(4);
+            ->orderBy('created_at', 'desc')
+            ->where('product_id', '=', $this->product->id)
+            ->paginate(4);
 
-        if($reviews->count() > 0)
-        {
-
-            return view('livewire.review-component',['reviews'=>$reviews]);
-        }
-        else
-        {
+        if ($reviews->count() > 0) {
+            return view('livewire.review-component', ['reviews' => $reviews]);
+        } else {
             return view('livewire.review-component');
         }
     }

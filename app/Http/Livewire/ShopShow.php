@@ -17,6 +17,11 @@ class ShopShow extends Component
     public $qty = 1;
     public $rating;
     public $comment;
+
+    protected $rules = [
+      'rating'=>'integer|min:1|max:5',
+      'comment'=>'string|min:1|max:50'
+    ];
     public function render()
     {
       $user_allowed_to_review = false;
@@ -77,8 +82,10 @@ class ShopShow extends Component
     }
 
     public function store_review()
-    { 
-      $review = Review::create([
+    {
+      $this->validate();
+
+      Review::create([
         'user_name'=>Auth::user()->name,
         'rating' => $this->rating,
         'comment' => $this->comment,

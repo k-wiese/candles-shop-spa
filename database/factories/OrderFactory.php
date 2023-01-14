@@ -18,7 +18,7 @@ class OrderFactory extends Factory
     {
         return [
             'user_id'=>1,
-            'price'=>321,
+            'price'=>312,
             'is_paid'=>fake()->boolean,
         ];
     }

@@ -10,7 +10,7 @@
                      <p class="my-2" >
                
                         @php
-                        for($i = 0; $i < 5; $i++)
+                        for($i = 1; $i <= 5; $i++)
                         {
                             if(floor($review->rating) < $i)
                             {

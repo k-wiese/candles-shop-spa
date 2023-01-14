@@ -23,7 +23,7 @@ class ReviewFactory extends Factory
             'product_id' => 7,
             'user_name' => 'Random',
             'comment' => 'Lorem ipsum sil dolor amet',
-            'rating' => fake()->randomFloat(2, 0, 5),
+            'rating' => fake()->randomElement(1,2,3,4,5),
             'user_id' => 7,
 
         ];

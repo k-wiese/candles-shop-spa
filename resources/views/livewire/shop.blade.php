@@ -7,7 +7,10 @@
             @if(Auth::check() and Auth::user()->role === 'admin')
             <div class="col-sm-12 text-center p-3">
 
-                <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#createModal"  type="button">Add new product</button>
+                <a href="{{route('product.create')}}">
+                <button class="btn btn-outline-light"  type="button">Add new product</button>
+                </a>
+
             </div>
             
             @endif
@@ -152,10 +155,11 @@
                         <div class="p-2 text-center ">
                             <div class="row">
                                 <div class=" col-6 p-2">
-        
-                                    <form wire:submit.prevent="change_edited({{$product->id}})">
-                                    <button type="submit" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" >Edit</button>
-                                    </form>
+
+                                    <a href="{{route('product.edit',$product->id)}}">
+                                    <button type="submit" class="btn btn-outline-light btn-sm" >Edit</button>
+
+                                    </a>
                                 </div>
                                 
                                 <div class="col-6 p-2">
@@ -198,24 +202,23 @@
         
                                     </div>
                             </div>
-                   
-        
-            
-        
-                      
-                    </div>
-
-                    
-        
-                    @endforeach
-                    <div class="col-sm-12 d-flex">
-                        <div class="mx-auto mb-2 pagination-dark my-3">
-            
-                            {{  $products->links()    }}
+                            
+                            
+                            
+                            
                         </div>
-                    </div>
+                        
+                        
+                        
+                        @endforeach
+                        <div wire:loading class="text-center">
+                            <div class="spinner-border text-info" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
+                        </div>
                 </div>
             </div>
+           
           
 
                 
@@ -224,161 +227,16 @@
             </div>
             
         </div>
-        @if(Auth::check() and Auth::user()->role === 'admin')
-       <!-- Modal Create -->
-       <div class="modal fade " id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-        <div class="modal-dialog ">
-        <div class="modal-content bg-dark">
-            <div class="modal-header ">
-            <h1 class="modal-title fs-5 ms-4" id="createModalLabel">{{__('Add new product to shop')}}</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            
-                <form action="{{  route('product.store')  }}" enctype="multipart/form-data" method="post">
-                    @csrf
-                    <div class="p-2">
-
-
-                    <div class="input-group p-2">
-                        <span class="input-group-text">Name</span>
-                        <input type="text" class="form-control" name="name" aria-label="Dollar amount (with dot and two decimal places)">
-
-                      </div>
-                    <div class="input-group p-2">
-                        <span class="input-group-text">Description</span>
-                        <input type="text" class="form-control" name="description" aria-label="Dollar amount (with dot and two decimal places)">
-
-                      </div>
-                    <div class="input-group p-2">
-                        <span class="input-group-text">Price</span>
-                        <input type="text" class="form-control" name="price" aria-label="Dollar amount (with dot and two decimal places)">
-                        <span class="input-group-text">$</span>
-                        <span class="input-group-text">0.00</span>
-                      </div>
-                    <div class="p-2">
-                        <label  class="form-label">Color</label>
-                        <select name="color" class="form-control">
-                            <option value="black">Black</option>
-                            <option value="white">White</option>
-                            <option value="blue">Blue</option>
-                            <option value="yellow">Yellow</option>
-                            <option value="transparent">Transparent</option>
-                          </select>
-                    </div>
-                    <div class="p-2">
-                        <label  class="form-label">Type</label>
-                        <select name="type" class="form-control">
-                            <option value="candle">Candle</option>
-                            <option value="other">Other</option>
-                          </select>
-                    </div>
-                    
-                    <div class="p-2">
-                        <label for="formFile" class="form-label">Photo</label>
-                        <input class="form-control" name="photo" type="file" id="formFile">
-                    </div>
-                    <div class="form-check px-5 mt-4">
-                        <label class="form-check-label" for="discount">
-                          Discount (not required)
-                      <input name="discount" value="{{ true }}" class="form-check-input" type="checkbox" id="discount">
-                      </label>
-                    </div>
-                    <div class="input-group mb-3 p-2">
-                        <span class="input-group-text" id="basic-addon1">Discount value</span>
-                        <input name="discount_value" type="text" class="form-control" placeholder="ex. 25" aria-label="Username" aria-describedby="basic-addon1">
-                      </div>
-
-
-                    <div class="p-3 text-center">
-                        <button type="submit" class="btn btn-outline-light">Add new product</button>
-                    </div>
-                </div>
-                </form>
-
-
-
-            </div>
-
-        </div>
-
-        </div>
-    </div>
-    
-    
-    @endif
-    
-     <!-- Modal Edit -->
-     <form action="product/{{$currently_edited_product}}" enctype="multipart/form-data" method="post">
-
-     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true" wire:ignore>
-        <div class="modal-dialog">
-        <div class="modal-content bg-dark">
-            <div class="modal-header ">
-            <h1 class="modal-title fs-5 ms-4" id="editModalLabel">{{__('Edit product')}}</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            
-                    
-                    @csrf
-                    @method('patch')
-                    <div class="p-2">
-                        <input type="hidden" name="product" value="$currently_edited_product">
-                    <div class="input-group p-2">
-                        <span class="input-group-text">Name</span>
-                        <input type="text" class="form-control"  name="name" aria-label="Dollar amount (with dot and two decimal places)">
-
-                    </div>
-                    <div class="input-group p-2">
-                        <span class="input-group-text">Description</span>
-                        <input type="text" class="form-control"  name="description" aria-label="Dollar amount (with dot and two decimal places)">
-
-                    </div>
-                    <div class="input-group p-2">
-                        <span class="input-group-text">Price</span>
-                        <input type="text" class="form-control"  name="price" aria-label="Dollar amount (with dot and two decimal places)">
-                        <span class="input-group-text">$</span>
-                        <span class="input-group-text">0.00</span>
-                    </div>
-                    <div class="p-2">
-                        <label  class="form-label">Color</label>
-                        <select name="color" class="form-control">
-                            <option value="black">Black</option>
-                            <option value="white">White</option>
-                            <option value="blue">Blue</option>
-                            <option value="yellow">Yellow</option>
-                        </select>
-                    </div>
-                    
-                    <div class="p-2">
-                        <label for="formFile" class="form-label">Photo</label>
-                        <input class="form-control" name="photo" type="file" id="formFile">
-                    </div>
-
-                    <div class="form-check px-5 mt-4">
-                        <label class="form-check-label" for="discount">
-                        Discount (not required)
-                    <input name="discount" value="{{ true }}" class="form-check-input" type="checkbox" id="discount">
-                    </label>
-                    </div>
-                    <div class="input-group mb-3 p-2">
-                        <span class="input-group-text" id="basic-addon1">Discount value</span>
-                        <input name="discount_value" type="text" class="form-control" placeholder="ex. 25" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="p-3 text-center">
-                        <button type="submit" class="btn btn-outline-light">Edit product</button>
-                    </div>
-                
-
-
-
-            </div>
-
-        </div>
-        </div>
-    </div>
+        
 </form>
-  
+
+<script type="text/javascript">
+    window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    window.livewire.emit('load-more');
+    }
+    };
+ </script>
+
 </div>
 

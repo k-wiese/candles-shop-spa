@@ -96,13 +96,13 @@
                                     
                                                             <div class="input-group p-2">
                                                                 <span class="input-group-text">Rating</span>
-                                                                <input type="number" wire:model="rating" class="form-control "  min="1" max="5"> 
-
+                                                                <input required type="number" wire:model="rating" class="form-control "  min="1" max="5"> 
+                                                                @error('rating') <span class="error">{{ $message }}</span> @enderror
                                                             </div>
                                                             <div class="input-group p-2">
                                                                 <span class="input-group-text">With textarea</span>
-                                                                <textarea class="form-control" wire:model="comment"  aria-label="With textarea"></textarea>
-                                                                
+                                                                <textarea  required class="form-control" wire:model="comment"  aria-label=""></textarea>
+                                                                @error('email') <span class="error">{{ $message }}</span> @enderror
                                                             </div>
 
                                         
